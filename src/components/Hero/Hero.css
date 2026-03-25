@@ -1,0 +1,345 @@
+/* ── Hero Section ── */
+
+.hero {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  border-bottom: 2.5px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  transition: background 1s ease;
+}
+
+/* ── Weather scene container ── */
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: background 1.2s ease;
+}
+
+/* ── Cloud layer ── */
+.cloud-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cloud {
+  position: absolute;
+  border-radius: 50px;
+  background: white;
+  opacity: 0.85;
+}
+
+/* Individual clouds with sketch feel */
+.cloud-1 {
+  width: 90px; height: 36px;
+  top: 14%;
+  animation: cloud-drift 18s linear infinite;
+  animation-delay: 0s;
+}
+.cloud-2 {
+  width: 120px; height: 44px;
+  top: 8%;
+  animation: cloud-drift-slow 26s linear infinite;
+  animation-delay: -8s;
+  opacity: 0.7;
+}
+.cloud-3 {
+  width: 70px; height: 28px;
+  top: 22%;
+  animation: cloud-drift 22s linear infinite;
+  animation-delay: -14s;
+  opacity: 0.6;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cloud::before {
+  width: 50%; height: 140%;
+  top: -40%; left: 15%;
+}
+.cloud::after {
+  width: 35%; height: 120%;
+  top: -25%; right: 20%;
+}
+
+/* ── Rain layer ── */
+.rain-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.raindrop {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(130, 180, 220, 0.8));
+  border-radius: 2px;
+  animation: rain-fall linear infinite;
+}
+
+/* ── Sun ── */
+.sun-wrap {
+  position: absolute;
+  top: 14%;
+  right: 12%;
+  z-index: 2;
+}
+
+.sun-circle {
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle, #FFE066, #F0A830);
+  border-radius: 50%;
+  border: 2.5px solid var(--ink);
+  animation: sun-glow 3s ease-in-out infinite;
+}
+
+.sun-rays {
+  position: absolute;
+  inset: -16px;
+  animation: sun-ray-spin 12s linear infinite;
+}
+
+.sun-ray {
+  position: absolute;
+  width: 3px;
+  height: 14px;
+  background: #F0A830;
+  border-radius: 2px;
+  left: 50%;
+  transform-origin: 50% calc(100% + 32px);
+  transform: translateX(-50%) rotate(calc(var(--i) * 45deg));
+}
+
+/* ── Lightning ── */
+.lightning-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 220, 0.6);
+  pointer-events: none;
+  animation: lightning 3s ease-in-out infinite;
+}
+
+.lightning-bolt {
+  position: absolute;
+  font-size: 48px;
+  top: 20%;
+  right: 20%;
+  animation: lightning 3s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+/* ── Stars (night) ── */
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle linear infinite;
+}
+
+/* ── Moon ── */
+.moon {
+  position: absolute;
+  top: 14%;
+  right: 12%;
+  font-size: 52px;
+  animation: float-in-down 1s ease both;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 200, 0.6));
+}
+
+/* ── Hero content ── */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px 16px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  font-family: var(--font-comic);
+  box-shadow: 2px 2px 0 var(--ink);
+  margin-bottom: 14px;
+  animation: float-in-down 0.6s ease both 0.1s;
+}
+
+.hero-title {
+  font-family: var(--font-sketch);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 8px;
+  animation: float-in-up 0.6s ease both 0.2s;
+
+  /* Text shadow for readability on sky bg */
+  text-shadow:
+    2px 2px 0 rgba(245,240,232,0.9),
+    -1px -1px 0 rgba(245,240,232,0.7);
+}
+
+.hero-subtitle {
+  font-size: 14px;
+  color: var(--ink-light);
+  font-family: var(--font-comic);
+  animation: float-in-up 0.6s ease both 0.3s;
+  text-shadow: 1px 1px 0 rgba(245,240,232,0.8);
+}
+
+/* ── Weather stats row ── */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  animation: float-in-up 0.6s ease both 0.4s;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-stat-chip {
+  background: rgba(245, 240, 232, 0.92);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-family: var(--font-comic);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Location strip ── */
+.hero-location {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-light);
+  font-family: var(--font-comic);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: float-in-up 0.5s ease both 0.5s;
+  background: rgba(245,240,232,0.85);
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(44,36,22,0.2);
+}
+
+/* ── Grass + soil footer ── */
+.hero-footer {
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+}
+
+.grass-container {
+  position: relative;
+  height: 90px;
+  overflow: hidden;
+}
+
+.grass-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.soil-bar {
+  background: var(--earth);
+  border-top: 2.5px solid var(--ink);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.soil-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-comic);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--paper);
+}
+
+.soil-stat-icon {
+  font-size: 16px;
+}
+
+/* ── Loading skeleton ── */
+.hero-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--paper-dark) 25%, var(--paper-line) 50%, var(--paper-dark) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Advice ticker ── */
+.hero-advice {
+  background: rgba(107,122,62,0.12);
+  border: 1.5px dashed var(--olive);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: var(--font-comic);
+  color: var(--olive);
+  max-width: 300px;
+  margin-top: 12px;
+  animation: float-in-up 0.6s ease both 0.6s;
+  text-align: center;
+}

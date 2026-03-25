@@ -1,0 +1,163 @@
+/* ═══════════════════════════════════════════
+   KRISHIMITRA — Animation Library
+═══════════════════════════════════════════ */
+
+/* ── Cloud movement (Mario-style L→R loop) ── */
+@keyframes cloud-drift {
+  0%   { transform: translateX(-120px); opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { transform: translateX(calc(100vw + 120px)); opacity: 0; }
+}
+
+@keyframes cloud-drift-slow {
+  0%   { transform: translateX(-200px); opacity: 0; }
+  5%   { opacity: 0.7; }
+  95%  { opacity: 0.7; }
+  100% { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+}
+
+/* ── Sun glow pulse ── */
+@keyframes sun-glow {
+  0%, 100% { box-shadow: 0 0 30px 10px rgba(240, 168, 48, 0.4); transform: scale(1); }
+  50%       { box-shadow: 0 0 50px 20px rgba(240, 168, 48, 0.6); transform: scale(1.05); }
+}
+
+@keyframes sun-ray-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Rain drops ── */
+@keyframes rain-fall {
+  0%   { transform: translateY(-20px); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0.3; }
+}
+
+/* ── Lightning flash ── */
+@keyframes lightning {
+  0%, 100%       { opacity: 0; }
+  5%, 15%        { opacity: 1; }
+  10%, 20%       { opacity: 0; }
+  25%            { opacity: 0.8; }
+  30%            { opacity: 0; }
+}
+
+/* ── Grass sway ── */
+@keyframes grass-sway {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  25%      { transform: rotate(3deg) scaleY(1.02); }
+  75%      { transform: rotate(-3deg) scaleY(1.01); }
+}
+
+@keyframes grass-sway-alt {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  30%      { transform: rotate(-4deg) scaleY(1.03); }
+  70%      { transform: rotate(2deg) scaleY(1.01); }
+}
+
+/* ── Grass grow (scroll triggered via JS class) ── */
+@keyframes grass-grow {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to   { transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* ── Flower blossom ── */
+@keyframes flower-bloom {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  40%  { transform: scale(1.2) rotate(5deg); opacity: 1; }
+  60%  { transform: scale(0.95) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes flower-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(-8px) rotate(5deg); }
+}
+
+@keyframes flower-fade-out {
+  0%   { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(0.5) translateY(-20px); }
+}
+
+/* ── Voice pulse rings ── */
+@keyframes voice-ring {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ── Float in ── */
+@keyframes float-in-up {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-in-down {
+  0%   { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Wobble ── */
+@keyframes wobble {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-4deg); }
+  30%  { transform: rotate(3deg); }
+  45%  { transform: rotate(-2deg); }
+  60%  { transform: rotate(1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ── Bounce ── */
+@keyframes bounce-in {
+  0%   { transform: scale(0.3); opacity: 0; }
+  50%  { transform: scale(1.08); }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Sketch draw (border animation) ── */
+@keyframes sketch-draw {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ── Star twinkle ── */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 1; transform: scale(1.2); }
+}
+
+/* ── Shake (for errors/alerts) ── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+
+/* ── Pulse dot ── */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ── Highlight (onboarding spotlight) ── */
+@keyframes spotlight-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(240, 168, 48, 0.4), 0 0 0 8px rgba(240, 168, 48, 0.2); }
+  50%      { box-shadow: 0 0 0 6px rgba(240, 168, 48, 0.6), 0 0 0 12px rgba(240, 168, 48, 0.3); }
+}
+
+/* ── Stars (night scene) ── */
+@keyframes star-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50%      { transform: translateY(-4px) rotate(180deg); opacity: 1; }
+}
+
+/* ── Drop in ── */
+@keyframes drop-in {
+  0%   { transform: translateY(-100px); opacity: 0; }
+  60%  { transform: translateY(6px); }
+  100% { transform: translateY(0); opacity: 1; }
+}

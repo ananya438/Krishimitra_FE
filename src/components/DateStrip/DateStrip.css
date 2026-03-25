@@ -1,0 +1,177 @@
+/* ── Date Strip ── */
+
+.date-strip-wrap {
+  padding: 0 16px;
+  margin: 24px 0 0;
+}
+
+.date-strip-label {
+  font-size: 11px;
+  font-family: var(--font-comic);
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.date-strip {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--ink);
+  overflow: hidden;
+}
+
+.date-strip::-webkit-scrollbar { display: none; }
+
+.date-cell {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  font-family: var(--font-comic);
+  border-right: 1.5px solid var(--paper-line);
+  transition: background 0.15s ease;
+  position: relative;
+  user-select: none;
+}
+
+.date-cell:last-child {
+  border-right: none;
+}
+
+.date-cell:active {
+  background: var(--paper-dark);
+}
+
+.date-cell.selected {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.date-cell.today {
+  background: var(--olive);
+  color: var(--paper);
+}
+
+.date-cell.today.selected {
+  background: var(--ink);
+}
+
+.date-cell-day {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-cell-num {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-family: var(--font-sketch);
+}
+
+.date-cell-month {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-top: 1px;
+}
+
+.date-cell-today-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--amber-light);
+  margin: 3px auto 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.date-cell.selected .date-cell-today-dot,
+.date-cell.today .date-cell-today-dot {
+  background: white;
+}
+
+/* ── Prediction panel below strip ── */
+.date-prediction {
+  margin-top: 12px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 3px 3px 0 var(--ink);
+  animation: float-in-up 0.3s ease both;
+}
+
+.date-prediction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.date-prediction-title {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-hand);
+  color: var(--ink);
+}
+
+.date-prediction-badge {
+  font-size: 10px;
+  background: var(--paper-dark);
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  padding: 2px 8px;
+  color: var(--ink-muted);
+  font-family: var(--font-comic);
+}
+
+.date-prediction-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--paper-line);
+}
+
+.date-prediction-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.date-prediction-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.date-prediction-text {
+  font-size: 13px;
+  color: var(--ink);
+  font-family: var(--font-comic);
+  flex: 1;
+}
+
+.date-prediction-value {
+  font-weight: 700;
+  color: var(--olive);
+}
+
+@keyframes float-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.5; }
+}
