@@ -103,7 +103,6 @@ const { hasChosen } = useApp();
       {/* ── NAVBAR ── */}
       <nav className={`navbar${isScrolled ? ' navbar--scrolled' : ''}`}>
         <div className="brand-logo">
-          <div className="brand-icon">🌾</div>
           <div className="brand-text">
             <span className="brand-krishi">Krishi</span><span className="brand-mitra">Mitra</span>
           </div>
