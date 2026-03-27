@@ -5,6 +5,8 @@ import clouds from './assets/clouds.svg'
 import rainDrops from './assets/placidplace-drops-13474.gif'
 import navbarBottomBorder from './assets/navbar-bottom-border.svg'
 import pond from './assets/pond.svg'
+import LanguageSelect from './components/LanguageSelect.jsx'
+import { useApp } from './context/AppContext.jsx'
 
 function App() {
   const today = new Date().getDate();
@@ -15,11 +17,12 @@ function App() {
   const sliderRef = useRef(null);
   const isUserScrolling = useRef(false);
   const scrollTimeout = useRef(null);
-
+const { hasChosen } = useApp(); 
   const now = new Date();
   const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const { resetLanguage } = useApp();
 
-  const fullText = "Hello! I'm KrishiBot 🌾 Your soil moisture is stable at 42%, and light rain is expected today. Based on current conditions, I recommend delaying irrigation for 24 hours. How can I further assist with your harvest planning?";
+  const fullText = "Hello! I'm KrishiBot  Your soil moisture is stable at 42%, and light rain is expected today. Based on current conditions, I recommend delaying irrigation for 24 hours. How can I further assist with your harvest planning?";
 
   const dates = Array.from({ length: daysInMonth * 3 }, (_, i) => (i % daysInMonth) + 1);
 
@@ -92,7 +95,11 @@ function App() {
   };
 
   return (
-    <>
+     <>
+  {!hasChosen && <LanguageSelect />}
+
+  {/* rest of your app */}
+
       {/* ── NAVBAR ── */}
       <nav className={`navbar${isScrolled ? ' navbar--scrolled' : ''}`}>
         <div className="brand-logo">
@@ -108,7 +115,19 @@ function App() {
             <span>Dehradun, IN</span>
           </div>
         </div>
-
+        {/* Notification and language change button*/}
+                    <button 
+  className="nav-icon-btn language-btn"
+  onClick={resetLanguage}
+  title="Change Language"
+>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15 15 0 0 1 0 20"/>
+    <path d="M12 2a15 15 0 0 0 0 20"/>
+  </svg>
+</button>
         <div className="navbar-right">
           <button className="nav-icon-btn" aria-label="Notifications">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

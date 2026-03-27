@@ -164,6 +164,16 @@ a { text-decoration: none; }
   z-index: 49;
   pointer-events: none;
 }
+.language-btn {
+  margin-right: 8px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.language-btn:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
 
 /* ══════════════════════════════════════════
    HERO
