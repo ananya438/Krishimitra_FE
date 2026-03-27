@@ -7,6 +7,8 @@ import navbarBottomBorder from './assets/navbar-bottom-border.svg'
 import pond from './assets/pond.svg'
 import LanguageSelect from './components/LanguageSelect.jsx'
 import { useApp } from './context/AppContext.jsx'
+import useSpeechRecognition from "./components/useSpeechRecognition";
+import { speakText } from "./components/speakText";
 
 function App() {
   const today = new Date().getDate();
@@ -21,8 +23,13 @@ const { hasChosen } = useApp();
   const now = new Date();
   const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
   const { resetLanguage } = useApp();
-
-  const fullText = "Hello! I'm KrishiBot  Your soil moisture is stable at 42%, and light rain is expected today. Based on current conditions, I recommend delaying irrigation for 24 hours. How can I further assist with your harvest planning?";
+const { transcript, isListening, startListening, stopListening } =
+  useSpeechRecognition("en-IN");
+useEffect(() => {
+  if (transcript && !isListening) {
+    speakText(transcript, "hi-IN");
+  }
+}, [transcript, isListening]);
 
   const dates = Array.from({ length: daysInMonth * 3 }, (_, i) => (i % daysInMonth) + 1);
 
@@ -43,20 +50,6 @@ const { hasChosen } = useApp();
       }
     }
   }, [today, daysInMonth]);
-
-  // Typewriter effect
-  useEffect(() => {
-    if (isChatOpen) {
-      let i = 0;
-      setDisplayText('');
-      const interval = setInterval(() => {
-        setDisplayText(fullText.slice(0, i));
-        i++;
-        if (i > fullText.length) clearInterval(interval);
-      }, 30);
-      return () => clearInterval(interval);
-    }
-  }, [isChatOpen]);
 
   const handleScroll = () => {
     if (!sliderRef.current) return;
@@ -404,24 +397,40 @@ const { hasChosen } = useApp();
           {/* Text */}
           <div className="chat-text-container">
             <div className="flowing-text">
-              {displayText}
+              {transcript}
               <span className="cursor">|</span>
             </div>
           </div>
+          
 
           {/* Status + action row */}
           <div className="chat-action-row">
             <div className="bot-status">
               <span className="status-dot" /> Listening…
             </div>
-            <button className="chat-mic-btn" aria-label="Tap to speak">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+<button
+  className="chat-mic-btn"
+ onClick={() => {
+  console.log("MIC CLICKED");
+
+  if (isListening) {
+    console.log("Stopping...");
+    stopListening();
+  } else {
+    console.log("Starting...");
+    startListening();
+  }
+}}
+>  
+
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="9" y="2" width="6" height="12" rx="3" />
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
                 <line x1="12" y1="19" x2="12" y2="22" />
                 <line x1="8" y1="22" x2="16" y2="22" />
               </svg>
             </button>
+            
           </div>
         </div>
       )}
