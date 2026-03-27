@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css'
-import soilNormal from './soil_normal.svg'
-import clouds from './clouds.svg'
-import rainDrops from './placidplace-drops-13474.gif'
-import navbarBottomBorder from './navbar-bottom-border.svg'
-import pond from './pond.svg'
+import soilNormal from './assets/soil_normal.svg'
+import clouds from './assets/clouds.svg'
+import rainDrops from './assets/placidplace-drops-13474.gif'
+import navbarBottomBorder from './assets/navbar-bottom-border.svg'
+import pond from './assets/pond.svg'
 
 function App() {
   const today = new Date().getDate();
