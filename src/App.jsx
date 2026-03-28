@@ -23,7 +23,7 @@ const { hasChosen } = useApp();
   const now = new Date();
   const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
   const { resetLanguage } = useApp();
-const { transcript, isListening, startListening, stopListening } =
+const { transcript, isListening, error, startListening, stopListening } =
   useSpeechRecognition("en-IN");
 useEffect(() => {
   if (transcript && !isListening) {
@@ -406,7 +406,15 @@ useEffect(() => {
           {/* Status + action row */}
           <div className="chat-action-row">
             <div className="bot-status">
-              <span className="status-dot" /> Listening…
+              {error ? (
+                <div className="status-error">
+                  <span>⚠️ {error === 'network' ? 'Connection failed' : error}</span>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span className="status-dot" /> {isListening ? "Listening…" : "Paused"}
+                </div>
+              )}
             </div>
 <button
   className="chat-mic-btn"

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export default function useSpeechRecognition(selectedLanguage = "en-IN") {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [error, setError] = useState(null);
 
   const recognitionRef = useRef(null);
 
@@ -11,6 +12,7 @@ export default function useSpeechRecognition(selectedLanguage = "en-IN") {
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
+      setError("Speech Recognition not supported");
       console.error("Speech Recognition not supported");
       return;
     }
@@ -23,6 +25,7 @@ export default function useSpeechRecognition(selectedLanguage = "en-IN") {
 
     recognition.onstart = () => {
       console.log("🎤 Mic started");
+      setError(null);
       setIsListening(true);
     };
 
@@ -42,9 +45,16 @@ export default function useSpeechRecognition(selectedLanguage = "en-IN") {
       setTranscript(text);
     };
 
-    // 🔥 ADD THIS HERE (VERY IMPORTANT)
     recognition.onerror = (e) => {
       console.log("❌ Speech Error:", e.error);
+      
+      if (e.error === 'no-speech') {
+        // Just stop listening, don't treat as a persistent error
+        setIsListening(false);
+      } else {
+        setError(e.error);
+        setIsListening(false);
+      }
     };
 
     recognitionRef.current = recognition;
@@ -54,16 +64,18 @@ export default function useSpeechRecognition(selectedLanguage = "en-IN") {
     };
   }, [selectedLanguage]);
 
- const startListening = () => {
-  if (!recognitionRef.current) return;
+  const startListening = () => {
+    if (!recognitionRef.current) return;
 
-  try {
-    recognitionRef.current.abort(); // reset if already running
-    recognitionRef.current.start();
-  } catch (err) {
-    console.log("Start error:", err);
-  }
-};
+    try {
+      setError(null);
+      recognitionRef.current.abort(); // reset if already running
+      recognitionRef.current.start();
+    } catch (err) {
+      console.log("Start error:", err);
+      setError("Failed to start microphone");
+    }
+  };
 
   const stopListening = () => {
     recognitionRef.current?.stop();
@@ -72,6 +84,7 @@ export default function useSpeechRecognition(selectedLanguage = "en-IN") {
   return {
     transcript,
     isListening,
+    error,
     startListening,
     stopListening,
   };
